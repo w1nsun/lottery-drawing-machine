@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+    lottery-php-fpm:
+        build: docker/php-fpm
+        restart: unless-stopped
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - lottery-app-network
+
+    lottery-webserver:
+        image: nginx:alpine
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - lottery-app-network
+
+networks:
+    lottery-app-network:
+        driver: bridge
