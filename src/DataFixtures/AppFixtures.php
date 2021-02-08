@@ -28,26 +28,30 @@ class AppFixtures extends Fixture
         ;
         $manager->persist($user);
 
-        $prize = new Prize();
-        $prize
+        $prize1 = new Prize();
+        $prize1
             ->setTitle('IPhone 11')
             ->setType(Prize::TYPE_REAL)
         ;
+        $manager->persist($prize1);
 
-        $prize = new Prize();
-        $prize
+        $prize2 = new Prize();
+        $prize2
             ->setTitle('100$ - 500$')
             ->setType(Prize::TYPE_MONEY)
             ->setMinSum(100)
             ->setMaxSum(500)
         ;
-        $prize = new Prize();
-        $prize
+        $manager->persist($prize2);
+
+        $prize3 = new Prize();
+        $prize3
             ->setTitle('600 - 800 bonuses')
             ->setType(Prize::TYPE_BONUSES)
             ->setMinSum(600)
             ->setMaxSum(800)
         ;
+        $manager->persist($prize3);
 
         $manager->flush();
     }
