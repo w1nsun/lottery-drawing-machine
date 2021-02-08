@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}User Prizes{% endblock %}
+
+{% block body %}
+    <p>User Prizes</p>
+    <div class="d-flex p-2">
+        <button id="getRandomPrizeBtn" type="button" class="btn btn-primary">Get Random Prize</button>
+    </div>
+    <div class="d-flex p-2">
+        <table class="table" id="userPrizesTable">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for uPrize in userPrizes %}
+                <tr>
+                    <td>{{ uPrize.title }}</td>
+                    <td>{{ uPrize.readableType }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $('#getRandomPrizeBtn').on('click', () => {
+            fetch('/api/prizes/get-random.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let title = data.data.title;
+                        let readableType = data.data.readableType;
+
+                        $('#userPrizesTable tr:last').after('<tr><td>'+title+'</td><td>'+readableType+'</td></tr>');
+                    }
+                });
+        });
+    </script>
+{% endblock %}

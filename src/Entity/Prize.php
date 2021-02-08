@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\PrizeRepository;
@@ -118,5 +120,10 @@ class Prize
         $this->maxSum = $maxSum;
 
         return $this;
+    }
+
+    public function getReadableType(): string
+    {
+        return self::TYPES_ENUM[$this->getType()];
     }
 }
