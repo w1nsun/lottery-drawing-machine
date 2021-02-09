@@ -1,34 +1,35 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Service;
 
+use App\DTO\ActivateResult;
 use App\Entity\UserPrize;
-use Doctrine\ORM\EntityManagerInterface;
 
 class UserPrizeActivator
 {
-    public function activate(UserPrize $userPrize): bool
+    public function activate(UserPrize $userPrize): ActivateResult
     {
         //validation or invoke 3d party API
-
         $userPrize->activate();
 
-        return true;
+        return ActivateResult::createSuccess($userPrize);
     }
 
     /**
      * @param UserPrize[] $userPrizes
-     * @return bool[]
+     * @return ActivateResult[]
      */
     public function batchActivate(array $userPrizes): array
     {
-        $statuses = [];
+        $result = [];
 
         foreach ($userPrizes as $userPrize) {
-            $statuses[$userPrize->getId()] = $this->activate($userPrize);
+            $this->activate($userPrize);
+            $result[] = ActivateResult::createSuccess($userPrize);
         }
 
-        return $statuses;
+        return $result;
     }
 }

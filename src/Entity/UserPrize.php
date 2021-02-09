@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserPrize
 {
-    private const STATUS_NEW = 0;
-    private const STATUS_ACTIVATED = 1;
+    public const STATUS_NEW = 0;
+    public const STATUS_ACTIVATED = 1;
 
     private const STATUSES_ENUM = [
         self::STATUS_NEW => 'new',
