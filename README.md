@@ -48,3 +48,24 @@ chmod -R 777 var/data.db
 ```
 bin/phpunit
 ```
+
+-----
+
+#### Авторихация тестовым пользователем
+
+http://localhost/login
+
+username: test1 
+password: pass
+
+
+#### Получить призы тут
+
+http://localhost/prizes
+
+
+#### Консольная команда для выдачи призов
+
+```
+bin/console app:user-prize-activation test1 1
+```
